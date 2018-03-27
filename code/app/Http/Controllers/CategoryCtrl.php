@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\CategoryModel;
-use Hash;
+use Hash, DB;
 
 
 class CategoryCtrl extends Controller
@@ -15,9 +15,9 @@ class CategoryCtrl extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        $users = CategoryModel::paginate(15);
-        return view('backend.content.user.user', ["users" => $users]);
+    {   
+        $category = CategoryModel::orderBy('id', 'desc')->paginate(15);
+        return view('backend.content.category.category', ["categories" => $category]);
     }
 
     /**
@@ -26,8 +26,9 @@ class CategoryCtrl extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        return view('backend.content.user.insert');
+    {   $category = CategoryModel::select("name", "id", "parent_id")
+                                    ->get();
+        return view('backend.content.category.insert', ["categories" => $category]);
     }
 
     /**
@@ -39,16 +40,27 @@ class CategoryCtrl extends Controller
     public function store(Request $request, CategoryModel $categoryModel)
     {
         $this->validateInsert($request);
-        
-        $$categoryModel->name     = $request->name;
-        $$categoryModel->email    = $request->email;
-        $$categoryModel->phone    = $request->phone;
-        $$categoryModel->address  = $request->address;
-        $$categoryModel->password = Hash::make("123456");
-        $$categoryModel->avatar   = $url_image;
-        $$categoryModel->save();
+            DB::beginTransaction();
+        try {
+            if ($request->parent_id != 0) {
+                $name_parent = CategoryModel::find($request->parent_id)->name;
+            } else {
+                $name_parent ="";
+            }
+            $url = url('')."/categories/".sanitizeTitle($request->name);
+            $categoryModel->name       = $request->name;
+            $categoryModel->slug       = sanitizeTitle($request->name);
+            $categoryModel->url_link   = $url;
+            $categoryModel->tag        = trim($request->tag, ',');
+            $categoryModel->parent_id  = $request->parent_id;
+            $categoryModel->name_parent = $name_parent;
+            $categoryModel->save();
+            DB::commit();
+        } catch (Exception $e) {
+            DB::rollback();
+        }
 
-        return redirect()->route("users.index");
+        return redirect()->route("categories.index");
     }
 
     /**
@@ -59,8 +71,8 @@ class CategoryCtrl extends Controller
      */
     public function show($id, Request $request)
     {
-        $user = CategoryModel::find($id);
-        return view('backend.content.user.update', ['user' => $user]);
+        $cate = CategoryModel::find($id);
+        return view('backend.content.category.update', ['user' => $cate]);
     }
 
     /**
@@ -71,8 +83,11 @@ class CategoryCtrl extends Controller
      */
     public function edit($id)
     {
-        $user = CategoryModel::find($id);
-        return view('backend.content.user.update', ['user' => $user]);
+        $category = CategoryModel::select("name", "id", "parent_id")
+                                    ->get();
+        $cate = CategoryModel::find($id);
+        return view('backend.content.category.update', ['category' => $cate, 
+                                                        'categories' => $category]);
     }
 
     /**
@@ -82,26 +97,32 @@ class CategoryCtrl extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id, UserModel $userModels)
+    public function update(Request $request, $id, CategoryModel $categoryModels)
     {   
         if (!empty($id)) {
-            $userModel = $userModels::find($id);
-            $this->validateInsert($request);
-            if ($request->hasFile("avatar") ) {
-                $url_image     = $request->avatar->hashName('');
-                $request->avatar->move(public_path("/images/avatar/"), $url_image);
-            } else {
-                $url_image = $userModel->avatar;
-            }
-            $userModel->name     = $request->name;
-            $userModel->email    = $request->email;
-            $userModel->phone    = $request->phone;
-            $userModel->address  = $request->address;
-            $userModel->password = Hash::make("123456");
-            $userModel->avatar   = $url_image;
-            $userModel->save();
+            DB::beginTransaction();
+           try {
+               $categoryModel = $categoryModels::find($id);
+               $this->validateInsert($request);
+               if ($request->parent_id != 0) {
+                   $name_parent = CategoryModel::find($request->parent_id)->name;
+               } else {
+                    $name_parent ="";
+                }
+               $url = url('')."/categories/".sanitizeTitle($request->name);
+               $categoryModel->name      = $request->name;
+               $categoryModel->slug      = sanitizeTitle($request->name);
+               $categoryModel->url_link  = $url;
+               $categoryModel->tag       = trim($request->tag, ',');
+               $categoryModel->parent_id = $request->parent_id;
+               $categoryModel->name_parent = $name_parent;
+               $categoryModel->save();
+               DB::commit();
+           } catch (Exception $e) {
+            DB::rollback();
+           }
         }
-        return redirect()->route("users.index");
+        return redirect()->route("categories.index");
     }
 
     /**
@@ -110,23 +131,25 @@ class CategoryCtrl extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id, UserModel $userModels)
+    public function destroy($id, CategoryModel $categoryModel)
     {
-        $userModel = $userModels::find($id)->delete();
-        return redirect()->route("users.index");
+        $categoryModel = $categoryModel::find($id);
+        $data = $categoryModel::where('parent_id', $categoryModel->id)
+                            ->get()->toArray();
+        if (empty($data)) {
+            $categoryModel->delete();
+        }
+        return redirect()->route("categories.index");
     }
 
     public function validateInsert($request){
         return $this->validate($request, [
-            'name'    => 'required',
-            'email'   => 'required|email',
-            'phone'   => 'required',
-            'address' => 'required',
+            'name'      => 'required',
+            'parent_id' => 'required',
+            
             ], [
-            'name.required'    => 'Tên người dùng không được để trống',
-            'email.required'   => 'Email người dùng không được để trống',
-            'phone.required'   => 'Số điện thoại người dùng không được để trống',
-            'address.required' => 'Địa chỉ người dùng không được để trống',
+            'name.required'      => 'Tên người dùng không được để trống',
+            'parent_id.required' => 'Email người dùng không được để trống',
             ]
         );
     }

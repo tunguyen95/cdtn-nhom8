@@ -20,6 +20,7 @@ class CreateCategoriesTable extends Migration
             $table->string('url_link');
             $table->string('tag')->nullable();
             $table->string('parent_id');
+            $table->string('name_parent')->nullable();
             $table->timestamps();
         });
     }
