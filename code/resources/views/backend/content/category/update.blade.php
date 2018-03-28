@@ -11,6 +11,11 @@
 		      <li class="active">Cập nhật</li>
 		    </ol>
 		</section>
+		<?php 
+			if (count($errors) >= 1) {
+				$errors = $errors->toArray();
+			}
+		?>
 	  	<section class="content">
 		    <div class="row">
 	         	<div class="col-md-12">
@@ -27,6 +32,11 @@
 				      			  	<label for="name" class="col-sm-2 control-label">Tên loại sản phẩm</label>
 				      			  	<div class="col-sm-10">
 				      			    	<input type="text" name="name" class="form-control" id="name" placeholder="Tên loại sản phẩm" value="{{ $category->name }}">
+				      			    	@if (array_has($errors, "name")) 
+				      			    	<div class="alert-danger" style="margin-top: 10px; padding-left: 10px;">
+								      		{{ $errors["name"][0] }}
+								      	</div>
+				      					@endif
 				      			 	</div>
 				      			</div>
 				      			<div class="form-group">
@@ -36,6 +46,11 @@
 	      			  	                    <option value="0">Loại sản phẩm cha</option>
 	      			  	                     {{ showCategoriesUpdate($categories, 0, "--", $category->parent_id, $category->id) }}
 	      			  	                  </select>
+	      			  	                  @if (array_has($errors, "parent_id")) 
+				      			    	<div class="alert-danger" style="margin-top: 10px; padding-left: 10px;">
+								      		{{ $errors["parent_id"][0] }}
+								      	</div>
+				      					@endif
 	      			  	            </div>
 				      			</div>
 				      			<div class="form-group">

@@ -15,6 +15,14 @@ class CreateArticlesTable extends Migration
     {
         Schema::create('articles', function (Blueprint $table) {
             $table->increments('id');
+            $table->string("tag")->nullable();
+            $table->string("title");
+            $table->string("description")->nullable();
+            $table->string("image_url");
+            $table->longtext("content");
+            $table->integer("author");
+            $table->string("slug");
+            $table->integer("status")->default(0)->comment("0: pending, 1: avaiable");
             $table->timestamps();
         });
     }

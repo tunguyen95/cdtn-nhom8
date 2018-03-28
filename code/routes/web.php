@@ -20,6 +20,8 @@ Route::group(['prefix' => 'admin'], function() {
     Route::resource('users', 'UserCtrl');
 
     Route::resource('categories', 'CategoryCtrl');
+
+    Route::resource('articles', 'ArticleCtrl');
 });
 
 

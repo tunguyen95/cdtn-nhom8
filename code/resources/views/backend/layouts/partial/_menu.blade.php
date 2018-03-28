@@ -11,10 +11,41 @@
       </div>
         <ul class="sidebar-menu" data-widget="tree">
             <li class="header">MAIN NAVIGATION</li>
-            <li class="active treeview">
+            <li class="treeview">
                 <a href="#">
-                    <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+                    <i class="fa fa-dashboard"></i><span>Người dùng</span>
+                    <span class="pull-right-container">
+                      <i class="fa fa-angle-left pull-right"></i>
+                    </span>
                 </a>
+                <ul class="treeview-menu">
+                    <li><a href="{{ route('users.index') }}"><i class="fa fa-circle-o"></i>Danh sách</a></li>
+                    <li><a href="{{ route('users.create') }}"><i class="fa fa-circle-o"></i>Thêm mới</a></li>
+                </ul>
+            </li>
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-dashboard"></i> <span>Loại sản phẩm</span>
+                    <span class="pull-right-container">
+                      <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="{{ route('categories.index') }}"><i class="fa fa-circle-o"></i>Danh sách</a></li>
+                    <li><a href="{{ route('categories.create') }}"><i class="fa fa-circle-o"></i>Thêm mới</a></li>
+                </ul>
+            </li>
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-dashboard"></i> <span>Bài tin</span>
+                    <span class="pull-right-container">
+                      <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                     <li><a href="{{ route('articles.index') }}"><i class="fa fa-circle-o"></i>Danh sách</a></li>
+                    <li><a href="{{ route('articles.create') }}"><i class="fa fa-circle-o"></i>Thêm mới</a></li>
+                </ul>
             </li>
         </ul>
     </section>
