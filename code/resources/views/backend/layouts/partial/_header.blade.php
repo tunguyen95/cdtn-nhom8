@@ -18,41 +18,29 @@
           <!-- User Account: style can be found in dropdown.less -->
             <li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
-                  <span class="hidden-xs">Alexander Pierce</span>
+                  <img src="{{ url('images/avatar', Auth::user()->avatar) }}" class="user-image" alt="User Image">
+                  <span class="hidden-xs">
+                        @if (Auth::check()) 
+                            {{ Auth::user()->name }}
+                        @endif
+                  </span>
                 </a>
                 <ul class="dropdown-menu">
-                  <!-- User image -->
-                  <li class="user-header">
-                    <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-
-                    <p>
-                      Alexander Pierce - Web Developer
-                      <small>Member since Nov. 2012</small>
-                    </p>
-                  </li>
-                  <!-- Menu Body -->
-                  <li class="user-body">
-                    <div class="row">
-                      <div class="col-xs-4 text-center">
-                        <a href="#">Followers</a>
-                      </div>
-                      <div class="col-xs-4 text-center">
-                        <a href="#">Sales</a>
-                      </div>
-                      <div class="col-xs-4 text-center">
-                        <a href="#">Friends</a>
-                      </div>
-                    </div>
-                    <!-- /.row -->
-                  </li>
-                  <!-- Menu Footer-->
+                <li class="user-body">
+                   <div class="pull-left">
+                     @if (Auth::check()) 
+                       <a href="{{ route('users.edit', Auth::user()->id) }}" class="btn btn-default btn-flat">Cập nhật thông tin</a>
+                     @endif
+                   </div>
+                   <div class="pull-right">
+                     @if (Auth::check()) 
+                       <a href="{{ route('users.edit', Auth::user()->id) }}" class="btn btn-default btn-flat">Đổi mật khẩu</a>
+                     @endif
+                   </div>
+                </li>
                   <li class="user-footer">
-                    <div class="pull-left">
-                      <a href="#" class="btn btn-default btn-flat">Profile</a>
-                    </div>
                     <div class="pull-right">
-                      <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                      <a href="{{ route('logout') }}" class="btn btn-default btn-flat">Đăng xuất</a>
                     </div>
                   </li>
                 </ul>

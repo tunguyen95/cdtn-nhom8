@@ -11,17 +11,20 @@
 |
 */
 
-Route::get('/', function () {
-    return view('backend/layouts/default');
-});
+Auth::routes();
+
+Route::get('admin/login', 'Auth\LoginController@showLoginForm');
+Route::post('admin/login', 'Auth\LoginController@login');
+
+Route::get('admin/logout', 'Auth\LoginController@logout')->name('logout');
 
 //Backend
-Route::group(['prefix' => 'admin'], function() {
+Route::group(['prefix' => 'admin', "middleware"=>"auth"], function() {
+
     Route::resource('users', 'UserCtrl');
 
     Route::resource('categories', 'CategoryCtrl');
 
     Route::resource('articles', 'ArticleCtrl');
 });
-
 
