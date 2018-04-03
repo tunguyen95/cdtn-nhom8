@@ -36,6 +36,7 @@
 				                    <th style="width: 150px">Trích dẫn</th>
 				                    <th style="width: 140px">Người đăng</th>
 				                    <th style="width: 100px">Thẻ gắn</th>
+				                    <th style="width: 100px">Trạng thái</th>
 				                    <th style="width: 100px">Thao tác</th>
 			               		</tr>
 			                </thead>
@@ -49,6 +50,9 @@
 						                    <td style="width: 150px">{!! $article->description !!}</td>
 						                    <td style="width: 100px">{!! $article->users->name !!}</td>
 						                    <td style="width: 100px">{!! $article->tag !!}</td>
+	                                        <td>@if ($article->status == 0) {{ "Chờ đăng bài" }} @endif
+	                    						@if ($article->status == 1) {{ "Đã đăng bài" }} @endif
+	                                        </td>
 						                    <td>
 						                    	<form action="{{ route('articles.destroy', $article->id) }}" method="POST">
 						                    		<a href="{{ route('articles.edit', $article->id ) }}" class="btn-info btn"><i class="fa fa-edit"></i></a>

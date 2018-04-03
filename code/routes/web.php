@@ -26,5 +26,7 @@ Route::group(['prefix' => 'admin', "middleware"=>"auth"], function() {
     Route::resource('categories', 'CategoryCtrl');
 
     Route::resource('articles', 'ArticleCtrl');
+
+    Route::resource('products', 'ProductCtrl');
 });
 
