@@ -33,6 +33,12 @@ Route::group(['prefix' => 'admin', "middleware"=>"auth"], function() {
 
 Route::get('','FrontEnd\HomeController@index')->name('home');
 
+Route::get('/categories/{slug}','FrontEnd\HomeController@categories');
+Route::get('/news','FrontEnd\HomeController@news');
+Route::get('/article/{slug}','FrontEnd\HomeController@article');
+
+Route::get('/product/{id}','FrontEnd\HomeController@product');
+
 // Route::get('admin/pages/login',['as'=>'admin.pages.getLogin','uses'=>'UserController@getLogin']);
 // Route::post('admin/pages/login',['as'=>'admin.pages.postLogin','uses'=>'UserController@postLogin']);
 // Route::get('admin/pages/logout',['as'=>'admin.pages.getLogout','uses'=>'UserController@getLogout']);

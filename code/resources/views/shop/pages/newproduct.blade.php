@@ -17,7 +17,7 @@
 											<a href="#" data-toggle="modal" data-target="#myModal2"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
 										</li>
 										<li>
-											<a href=""><i class="fa fa-info-circle" aria-hidden="true"></i></a>
+											<a href="{{ url('product', $product->id) }}"><i class="fa fa-info-circle" aria-hidden="true"></i></a>
 										</li>
 										<li>
 											<a href="#"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>

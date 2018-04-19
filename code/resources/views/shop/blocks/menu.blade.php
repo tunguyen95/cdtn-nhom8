@@ -21,7 +21,7 @@
 							@php
 								$getCategories_lv = App\Models\CategoryModel::getCategories_lvCon($category->id);
 							@endphp
-							<a href="{{ url('categories', $category->slug) }}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> {{ $category->name }}
+							<a href="{{ url('categories', $category->slug) }}" class="dropdown-toggle"> {{ $category->name }}
 							<span class="caret"></span></a>
 							@foreach ($getCategories_lv as $key => $category_lv)
 							<ul class="dropdown-menu">

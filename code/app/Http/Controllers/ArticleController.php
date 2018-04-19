@@ -17,7 +17,6 @@ class ArticleController extends Controller
     public function index()
     {   
         $articles = ArticleModel::orderBy('id', 'desc')->with("users")->paginate(15);
-
         return view('backend.content.article.article', ["articles" => $articles]);
     }
 
@@ -51,7 +50,7 @@ class ArticleController extends Controller
             $articleModel->description = $request->description;
             $articleModel->image_url   = $url_image;
             $articleModel->content     = $request->content;
-            $articleModel->author      = 1;
+            $articleModel->author      = Auth::user()->id;
             $articleModel->status      = $request->status;
             $articleModel->tag         = trim($request->tag, ',');
             $articleModel->save();
@@ -113,7 +112,7 @@ class ArticleController extends Controller
                $articleModel->description = $request->description;
                $articleModel->image_url   = $url_image;
                $articleModel->content     = $request->content;
-               $articleModel->author      = 1;
+               $articleModel->author      = Auth::user()->id;
                $articleModel->status      = $request->status;
                $articleModel->tag         = trim($request->tag, ',');
                $articleModel->save();
