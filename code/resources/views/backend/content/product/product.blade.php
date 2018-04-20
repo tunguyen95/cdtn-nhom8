@@ -58,7 +58,7 @@
 						                    		<a href="{{ route('products.show', $product->id ) }}" class="btn-info btn"><i class="fa fa-clipboard"></i></a>
 						                    		@method("DELETE")
 						                    		@csrf
-						                    	    <button  class="btn-danger btn" type="submit" onclick="confirm('Bạn muốn xóa sản phẩm này?')" ><i class="fa fa-trash"></i></button></a>
+						                    	    <button  class="btn-danger btn" type="submit" onclick="return confirm('Bạn muốn xóa sản phẩm này?')" ><i class="fa fa-trash"></i></button></a>
 						                    	</form>
 						                    	
 						                    </td>
