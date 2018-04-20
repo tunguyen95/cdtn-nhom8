@@ -7,10 +7,12 @@ use Illuminate\Http\Request;
 use App\Models\ProductModel;
 use App\Models\CategoryModel;
 use App\Models\ArticleModel;
-use Hash, DB;
+use App\Models\CustomerModel;
+use Hash, DB, Auth;
 
 
 class HomeController extends Controller {
+
    public function index() {
         return view('shop.pages.trangchu');
    }
@@ -38,9 +40,36 @@ class HomeController extends Controller {
    }
 
    public function product($id) {
-         $product   = ProductModel::where('id', $id)
-                              ->first();;
+      $product   = ProductModel::where('id', $id)
+                           ->first();;
 
-         return view('shop.pages.singleproduct', ['product'=> $product]);
+      return view('shop.pages.singleproduct', ['product'=> $product]);
+   }
+
+   public function register(Request $request) {
+      $customerModel = new CustomerModel();
+      $customerModel->name     =  $request->name;
+      $customerModel->account   =  $request->account;
+      $customerModel->email    =  $request->email;
+      $customerModel->password =  Hash::make($request->password);
+      $customerModel->save();
+
+     
+      return redirect()->route('home');
+   }
+
+   public function login(Request $request) {
+      Auth::guard('customer')->attempt(['account' => $request->account, 'password' => $request->password]);
+      return redirect()->route('home');
+   }
+
+   public function logout(Request $request){
+      $this->guard()->logout();
+      $request->session()->invalidate();
+      return redirect()->route('home');
+   }
+
+   protected function guard() {
+        return Auth::guard('customer');
    }
 }

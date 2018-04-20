@@ -1,6 +1,50 @@
+<!-- header -->
+<div class="header" id="home1">
+	<div class="container">
+			@if (Auth::guard('customer')->check())
+			<div class="col-md-1">
+				<div class="dropdown" id="dangnhap">
+				    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"> Xin chào,
+				    {{ Auth::guard('customer')->user()->name }}<span style="color: #CC9900"> </span>
+				    <span class="caret"></span></button>
+				    <ul class="dropdown-menu">
+				      <li><a href=""><span><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Profile </span></a></li>
+				      <li>
+			                <a href="{{ url('customer/logout') }}"><span><i class="fa fa-sign-out" aria-hidden="true"></i>Đăng xuất</span></a>
+				      </li>
+				    </ul>
+				</div>
+			</div>
+			@else 
+			<div class="w3l_login">
+				<a href="#" data-toggle="modal" data-target="#myModal88"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></a>
+			</div>
+			@endif
+			<div class="w3l_logo">
+				<h1 style="font-family: 'El Messiri', sans-serif;"><a href="{{url('/')}}">Shop kid CNB<span style="font-family: 'Lobster', cursive;">Sự lựa chọn tuyệt vời của bạn  </span></a></h1>
+			</div>
+			<div class="search">
+				<input class="search_box" type="checkbox" id="search_box">
+				<label class="icon-search" for="search_box"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></label>
+				<div class="search_form">
+					<form action="#" method="post">
+						<input type="hidden" name="_token" value="{!! csrf_token() !!}">
+						<input type="text" name="Search" placeholder="Tìm kiếm...">
+						<input type="submit" value="Send">
+					</form>
+				</div>
+			</div>
+			<div class="cart cart box_1"> 
+				<form action="#" method="post" class="last" > 
+					<input type="hidden" name="_token" value="{!! csrf_token() !!}">
+					<input type="hidden" name="cmd" value="_cart" />
+					<input type="hidden" name="display" value="1" />
+					<button class="w3view-cart" type="submit" name="submit" value=""><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></button>
+				</form>   
+			</div> 
+	</div>
 
-<!-- header modal -->
-<div class="modal fade" id="myModal88" tabindex="-1" role="dialog" aria-labelledby="myModal88"
+	<div class="modal fade" id="myModal88" tabindex="-1" role="dialog" aria-labelledby="myModal88"
 	aria-hidden="true">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
@@ -21,10 +65,10 @@
 								<div class="tab-1 resp-tab-content" aria-labelledby="tab_item-0">
 									<div class="facts">
 										<div class="register">
-											<form action="" method="POST">	
+											<form action="{{ url('customer/login') }}" method="post">	
 												<input type="hidden" name="_token" value="{!! csrf_token() !!}">		
-												<input name="username" placeholder="Tên đăng nhập" type="text" required="">						
-												<input name="password" placeholder="Mật khẩu" type="password" required="">										
+												<input name="account" placeholder="Tên đăng nhập" type="text">						
+												<input name="password" placeholder="Mật khẩu" type="password">										
 												<div class="sign-up">
 													<input type="submit" value="Sign in"/>
 												</div>
@@ -35,14 +79,16 @@
 								<div class="tab-2 resp-tab-content" aria-labelledby="tab_item-1">
 									<div class="facts">
 										<div class="register">
-											<form action="" method="POST">
-												<input type="hidden" name="_token" value="{!! csrf_token() !!}">		
-												<input placeholder="Tên đăng nhập" name="txtUserNames" type="text" required="">
-												<input placeholder="Email" name="txtEmails" type="email" required="">	
-												<input placeholder="Mật khẩu" name="txtPasss" type="password" required="">	
-												<input placeholder="Xác nhận mật khẩu" name="txtRePasss" type="password" required="">
+											<form action="{{ url('createUser') }}" method="post">
+												@method('POST')
+												@csrf
+												<input style="margin-bottom: 15px;" placeholder="Tên người dùng" name="name" type="text">
+												<input placeholder="Tài khoản" name="account" type="text">
+												<input placeholder="Email" name="email" type="email">	
+												<input placeholder="Mật khẩu" name="password" type="password">	
+												<input placeholder="Xác nhận mật khẩu" name="confirmPassword" type="password">
 												<div class="sign-up">
-													<input type="submit" value="Create Account"/>
+													<button class="btn btn-info" type="submit">Đăng kí tài khoản</button>
 												</div>
 											</form>
 										</div>
@@ -82,111 +128,4 @@
 		</div>
 	</div>
 </div> 
-<!-- header modal -->
-<!-- header -->
-<div class="header" id="home1">
-	<div class="container">
-		@if(Auth::check())
-			@if(Auth::user()->status ==1)
-			<div class="col-md-1">
-				<div class="dropdown" id="dangnhap">
-				    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"> Xin chào , <span style="color: #CC9900"> {{ Auth::user()->name }}</span>
-				    <span class="caret"></span></button>
-				    <ul class="dropdown-menu">
-				      <li><a href="{{ route('getEditUser',Auth::user()->id)}}"><span><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Profile </span></a></li>
-				      @if(Auth::user()->level ==1) 
-				      <li><a href="{{ route('admin.users.getList') }}"><span><i class="fa fa-tasks" aria-hidden="true"></i> Quản lý</span></a></li>
-				      @endif
-				      <li class="divider"></li>
-				      <li>
-				      	<a href="{{ route('getDangXuat') }}"
-			                onclick="event.preventDefault();
-			                         document.getElementById('logout-form').submit();">
-			                <span><i class="fa fa-sign-out" aria-hidden="true"></i>Đăng xuất</span>
-			            </a>
-
-			            <form id="logout-form" action="{{  route('getDangXuat') }}" method="PUT" style="display: none;">
-				            {{ method_field('PUT') }}
-				       		{{ csrf_field() }}
-			            </form>
-				      </li>
-				    </ul>
-				</div>
-			</div>
-			<div class="w3l_logo">
-				<h1 style="font-family: 'El Messiri', sans-serif;"><a href="{{url('')}}"> Sản phẩm cho bé<span style="font-family: 'Lobster', cursive;">Sự lựa chọn tuyệt vời của bạn  </span></a></h1>
-			</div>
-			<div class="search">
-				<input class="search_box" type="checkbox" id="search_box">
-				<label class="icon-search" for="search_box"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></label>
-				<div class="search_form">
-					<form action="#" method="post">
-						<input type="text" name="Search" placeholder="Tìm kiếm...">
-						<input type="submit" value="Send">
-					</form>
-				</div>
-			</div>
-			<div class="cart cart box_1"> 
-				<form action="#" method="post" class="last"> 
-					<input type="hidden" name="_token" value="{!! csrf_token() !!}">
-					<input type="hidden" name="cmd" value="_cart" />
-					<input type="hidden" name="display" value="1" />
-					<button class="w3view-cart" type="submit" name="submit" value=""><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></button>
-				</form>   
-			</div> 
-			@else 
-			<div class="w3l_login">
-				<a href="#" data-toggle="modal" data-target="#myModal88"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></a>
-			</div>
-			<div class="w3l_logo">
-				<h1 style="font-family: 'El Messiri', sans-serif;"><a href="{{url('/')}}">Shop Kid BNC<span style="font-family: 'Lobster', cursive;">Sự lựa chọn tuyệt vời của bạn  </span></a></h1>
-			</div>
-			<div class="search">
-				<input class="search_box" type="checkbox" id="search_box">
-				<label class="icon-search" for="search_box"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></label>
-				<div class="search_form">
-					<form action="#" method="post">
-						<input type="hidden" name="_token" value="{!! csrf_token() !!}">
-						<input type="text" name="Search" placeholder="Tìm kiếm...">
-						<input type="submit" value="Send">
-					</form>
-				</div>
-			</div>
-			<div class="cart cart box_1"> 
-				<form action="#" method="post" class="last">
-					<input type="hidden" name="_token" value="{!! csrf_token() !!}"> 
-					<input type="hidden" name="cmd" value="_cart" />
-					<input type="hidden" name="display" value="1" />
-					<button class="w3view-cart" type="submit" name="submit" value=""><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></button>
-				</form>   
-			</div> 
-			@endif
-		@else 
-			<div class="w3l_login">
-				<a href="#" data-toggle="modal" data-target="#myModal88"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></a>
-			</div>
-			<div class="w3l_logo">
-				<h1 style="font-family: 'El Messiri', sans-serif;"><a href="{{url('/')}}">Thời trang RNT<span style="font-family: 'Lobster', cursive;">Sự lựa chọn tuyệt vời của bạn  </span></a></h1>
-			</div>
-			<div class="search">
-				<input class="search_box" type="checkbox" id="search_box">
-				<label class="icon-search" for="search_box"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></label>
-				<div class="search_form">
-					<form action="#" method="post">
-						<input type="hidden" name="_token" value="{!! csrf_token() !!}">
-						<input type="text" name="Search" placeholder="Tìm kiếm...">
-						<input type="submit" value="Send">
-					</form>
-				</div>
-			</div>
-			<div class="cart cart box_1"> 
-				<form action="#" method="post" class="last" > 
-					<input type="hidden" name="_token" value="{!! csrf_token() !!}">
-					<input type="hidden" name="cmd" value="_cart" />
-					<input type="hidden" name="display" value="1" />
-					<button class="w3view-cart" type="submit" name="submit" value=""><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></button>
-				</form>   
-			</div> 
-		@endif 
-	</div>
 </div>

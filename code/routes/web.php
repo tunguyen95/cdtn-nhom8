@@ -39,19 +39,8 @@ Route::get('/article/{slug}','FrontEnd\HomeController@article');
 
 Route::get('/product/{id}','FrontEnd\HomeController@product');
 
-// Route::get('admin/pages/login',['as'=>'admin.pages.getLogin','uses'=>'UserController@getLogin']);
-// Route::post('admin/pages/login',['as'=>'admin.pages.postLogin','uses'=>'UserController@postLogin']);
-// Route::get('admin/pages/logout',['as'=>'admin.pages.getLogout','uses'=>'UserController@getLogout']);
-// Route::get('chi-tiet-san-pham/{id}/{tenloai}',['as'=>'chitietsanpham','uses'=>'HomeController@chitietsanpham']);
-// Route::get('loai-san-pham/{id}/{tenloai}',['as'=>'loaisanpham','uses'=>'HomeController@loaisanpham']);
-// Route::get('lien-he',['as'=>'lienhe','uses'=>'HomeController@lienhe']);
-// Route::get('dang-nhap',['as'=>'getDangNhap','uses'=>'HomeController@getDangNhap']);
-// Route::post('dang-nhap',['as'=>'postDangNhap','uses'=>'HomeController@postDangNhap']);
-// Route::get('dang-ky',['as'=>'getDangKy','uses'=>'HomeController@getDangKy']);
-// Route::post('dang-ky',['as'=>'postDangKy','uses'=>'HomeController@postDangKy']);
-// Route::get('dang-xuat',['as'=>'getDangXuat','uses'=>'HomeController@getDangXuat']);
-// Route::get('cap-nhat-thong-tin-thanh-vien/{id}',['as'=>'getEditUser','uses'=>'HomeController@getEditUser']);
-// Route::post('cap-nhat-thong-tin-thanh-vien/{id}',['as'=>'postEditUser','uses'=>'HomeController@postEditUser']);
-// Route::get('khóa-tài-khoản',['as'=>'getBlockUser','uses'=>'HomeController@getBlockUser']);
-// Route::get('thanh-toan',['as'=>'getThanhToan','uses'=>'HomeController@getThanhToan']);
-// Route::post('thanh-toan',['as'=>'postThanhToan','uses'=>'HomeController@postThanhToan']);
+Route::post('createUser','FrontEnd\HomeController@register');
+
+Route::post('customer/login','FrontEnd\HomeController@login');
+
+Route::get('customer/logout','FrontEnd\HomeController@logout');
