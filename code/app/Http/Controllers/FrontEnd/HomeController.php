@@ -47,13 +47,32 @@ class HomeController extends Controller {
    }
 
    public function register(Request $request) {
+      return $this->validate($request, [
+         'name'       => 'required',
+         'account'          => 'required',
+         'email'            => 'required|unique:customer,email|email',
+         'confirmPassword' => 'required',
+         'password'         => 'required| min:8| max: 30|same:confirm_password',
+         
+            ], [
+         'name.required'            => 'Họ tên không được để trống',
+         'account.required'         => 'Tài khoản không được để trống',
+         'password.required'        => 'Mật khẩu không được để trống',
+         'password.max'             => 'Mật khẩu dài từ 8 đến 30 kí tự',
+         'password.min'             => 'Mật khẩu dài từ 8 đến 30 kí tự',
+         'confirmPassword.required' => 'Nhập lại mật khẩu không được để trống',
+         'password.same'            => 'Mật khẩu nhật lại không chính xác',
+         'email.required'           => 'Email không được để trống',
+         'email.unique'             => 'Email đã tồn tại',
+         'email.email'              => 'Email không đúng định dạng'
+            ]
+        );
       $customerModel = new CustomerModel();
       $customerModel->name     =  $request->name;
       $customerModel->account   =  $request->account;
       $customerModel->email    =  $request->email;
       $customerModel->password =  Hash::make($request->password);
       $customerModel->save();
-
      
       return redirect()->route('home');
    }
@@ -70,6 +89,6 @@ class HomeController extends Controller {
    }
 
    protected function guard() {
-        return Auth::guard('customer');
+      return Auth::guard('customer');
    }
 }

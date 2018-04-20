@@ -27,7 +27,7 @@ class CreateProductTable extends Migration
             $table->string("made_in")->nullable();
             $table->string("trade")->nullable();
             $table->string("status")->comments("0: còn hàng, 1: hết hàng");
-            $table->text("promotion");
+            $table->text("promotion")->nullable();
             $table->timestamps();
         });
     }
