@@ -14,17 +14,13 @@
 								<div class="w3_hs_bottom w3_hs_bottom_sub">
 									<ul>
 										<li>
-											<a href="#" data-toggle="modal" data-target="#myModal2"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
-										</li>
-										<li>
-											<a href=""><i class="fa fa-info-circle" aria-hidden="true"></i></a>
+											<a href="{{ url('product', $product->id) }}"><i class="fa fa-info-circle" aria-hidden="true"></i></a>
 										</li>
 										<li>
 											<a href="#"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
 										</li>
 									</ul>
 								</div>
-								<div class="modal video-modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModal2">
 									<div class="modal-dialog" role="document">
 										<div class="modal-content">
 											<div class="modal-header">
@@ -89,7 +85,7 @@
 								</div>
 								<div class="col-md-1"></div> 
 								<div class="col-md-6">
-									<a class="beta-btn primary" href="" style="display: block; border: blue solid 1px;height: 35px;line-height: 35px;border-radius: 5px;"><span ><i class="fa fa-chevron-right" ></i>Chi tiết</span></a>
+									<a class="beta-btn primary" href="{{ url('product', $product->id) }}" style="display: block; border: blue solid 1px;height: 35px;line-height: 35px;border-radius: 5px;"><span style="padding-left: 15px;"><i class="fa fa-chevron-right" ></i>Chi tiết</span></a>
 								</div>
 								<div class="row" style="margin-bottom: 5px;"></div>
 								<hr>

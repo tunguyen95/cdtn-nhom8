@@ -13,7 +13,7 @@
 	<div class="content-wrapper">
 		<section class="content-header">
 		    <h1>
-		      Người dùng
+		      Sản phẩm
 		      <small>Thêm mới</small>
 		    </h1>
 		    <ol class="breadcrumb">
