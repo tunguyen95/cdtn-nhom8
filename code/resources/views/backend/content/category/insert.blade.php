@@ -21,7 +21,7 @@
 	         	<div class="col-md-12">
 		         	<div class="box box-info">
 			            <div class="box-header with-border">
-			              <h3 class="text-center">Thêm mới người dùng</h3>
+			              <h3 class="text-center">Thêm mới loại sản phẩm</h3>
 			            </div>
 			            <form class="form-horizontal" method="POST" action="{{ route('categories.store') }}"
 			            enctype="multipart/form-data">

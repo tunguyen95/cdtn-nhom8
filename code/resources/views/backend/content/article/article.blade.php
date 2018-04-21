@@ -23,7 +23,7 @@
 		            <!-- /.box-header -->
 		            <div class="box-body">
 		            	<div class="box-header with-border pull-right">
-			              	<a href="{{ route('categories.create') }}" class="btn btn-info">
+			              	<a href="{{ route('articles.create') }}" class="btn btn-info">
 			              		Thêm mới bài tin
 			              	</a>
 			            </div>
@@ -44,7 +44,7 @@
 			                	@if (isset($articles))
 				                	@foreach ($articles as $key => $article)
 					                	<tr>
-						                    <td style="width: 15px">{{ $article->id }}</td>
+						                    <td style="width: 15px">{{ $key }}</td>
 						                    <td style="width: 150px">{{ $article->title }}</td>
 						                    <td style="width: 100px"><img src="{{ url('images/articles') }}/{!! $article->image_url !!}" alt="" style="width: 100px; height: 100px;"></td>
 						                    <td style="width: 150px">{!! $article->description !!}</td>

@@ -19,7 +19,7 @@
 		            <div class="box-body">
 		            	<div class="box-header with-border pull-right">
 			              	<a href="{{ route('categories.create') }}" class="btn btn-info">
-			              		Thêm mới người dùng
+			              		Thêm mới loại sản phẩm
 			              	</a>
 			            </div>
 		              	<table class="table table-bordered">
@@ -37,7 +37,7 @@
 			                	@if (isset($categories))
 				                	@foreach ($categories as $key => $category)
 					                	<tr>
-						                    <td>{!! $category->id !!}</td>
+						                    <td>{!! $key !!}</td>
 						                    <td>{!! $category->name !!}</td>
 						                    <td>{!! $category->name_parent !!}</td>
 						                    <td>{!! $category->url_link !!}</td>

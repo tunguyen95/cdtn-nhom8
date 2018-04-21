@@ -21,7 +21,7 @@
 			</div>
 			@endif
 			<div class="w3l_logo">
-				<h1 style="font-family: 'El Messiri', sans-serif;"><a href="{{url('/')}}">Shop kid CNB<span style="font-family: 'Lobster', cursive;">Sự lựa chọn tuyệt vời của bạn  </span></a></h1>
+				<h1 style="font-family: 'El Messiri', sans-serif;"><a href="{{url('/')}}">Cửa hàng mẹ và bé<span style="font-family: 'Lobster', cursive;">Sự lựa chọn tuyệt vời của bạn  </span></a></h1>
 			</div>
 			<div class="search">
 				<input class="search_box" type="checkbox" id="search_box">

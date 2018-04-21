@@ -38,7 +38,7 @@
 			                	@if (isset($users))
 				                	@foreach ($users as $key => $user)
 					                	<tr>
-						                    <td>{!! $user->id !!}</td>
+						                    <td>{!! $key !!}</td>
 						                    <td>{!! $user->name !!}</td>
 						                    <td>
 						                    	<img src="{{ url('images/avatar') }}/{!! $user->avatar !!}" alt="" style="width: 100px; height: 100px;">

@@ -24,7 +24,6 @@
 		<?php 
 			if (count($errors) >= 1) {
 				$errors = $errors->toArray();
-				print_r($errors);
 			}
 		?>
 	  	<section class="content">

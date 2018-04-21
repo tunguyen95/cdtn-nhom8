@@ -16,7 +16,7 @@
 	         	<div class="col-md-12">
 		         	<div class="box box-info">
 			            <div class="box-header with-border">
-			              <h3 class="text-center">Chi tiết bài viết</h3>
+			              <h3 class="text-center">Chi tiết một sản phẩm</h3>
 			            </div>
 			         	<div class="box-body">
 			              	<table class="table table-bordered">

@@ -47,12 +47,13 @@ class HomeController extends Controller {
    }
 
    public function register(Request $request) {
+      return 123;
       return $this->validate($request, [
-         'name'       => 'required',
-         'account'          => 'required',
-         'email'            => 'required|unique:customer,email|email',
+         'name'            => 'required',
+         'account'         => 'required',
+         'email'           => 'required|unique:customer,email|email',
          'confirmPassword' => 'required',
-         'password'         => 'required| min:8| max: 30|same:confirm_password',
+         'password'        => 'required| min:8| max: 30|same:confirmPassword',
          
             ], [
          'name.required'            => 'Họ tên không được để trống',
@@ -69,12 +70,12 @@ class HomeController extends Controller {
         );
       $customerModel = new CustomerModel();
       $customerModel->name     =  $request->name;
-      $customerModel->account   =  $request->account;
+      $customerModel->account  =  $request->account;
       $customerModel->email    =  $request->email;
       $customerModel->password =  Hash::make($request->password);
       $customerModel->save();
-     
-      return redirect()->route('home');
+      return $customerModel;
+      // return redirect()->route('home');
    }
 
    public function login(Request $request) {
